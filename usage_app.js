@@ -34,6 +34,7 @@ Usage.prototype.collect = function() {
       server.pubsub.subscribe('_peer/disconnect', function() {
         usage[connectionId].active = false;  
         usage[connectionId].disconnected = new Date().getTime();
+        self.emit('data', usage[connectionId]);
       });
     });
   }  
