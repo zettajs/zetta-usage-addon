@@ -22,6 +22,7 @@ Usage.prototype.collect = function() {
       usage[connectionId].bytesWritten = 0;
       usage[connectionId].bytesRead = 0;  
       usage[connectionId].active = true;
+      usage[connectionId].connected = new Date().getTime();
 
       agentSocket.on('data', function(d) {
         usage[connectionId].bytesWritten = agentSocket.bytesWritten;
@@ -32,6 +33,7 @@ Usage.prototype.collect = function() {
 
       server.pubsub.subscribe('_peer/disconnect', function() {
         usage[connectionId].active = false;  
+        usage[connectionId].disconnected = new Date().getTime();
       });
     });
   }  
