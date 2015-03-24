@@ -1,4 +1,4 @@
-var UsageResource = require('./UsageResource');
+var UsageResource = require('./usage_resource');
 var EventEmitter = require('events').EventEmitter;
 var util = require('util');
 
@@ -10,18 +10,19 @@ util.inherits(Usage, EventEmitter);
 Usage.prototype.collect = function() {
   var self = this;
   return function(server) {
-    var argo = server.httpServer.cloud;
+    var cloud = server.httpServer.cloud;
+    var requestServer = server.httpServer.server;
     var usage = {};
-    argo.add(UsageResource, usage);
+    cloud.add(UsageResource, usage);
     server.pubsub.subscribe('_peer/connect', function(ev, socket) {
       var name = socket.peer.name;
       var agentSocket = socket.peer.agent.socket;
       var connectionId = socket.peer.connectionId;
-      usage[connectionId].requests = 0; 
-      argo.server.on('request', function() {
-        usage[connectionId].requests++;t  
-      });
       usage[connectionId] = { name: name, connectionId: connectionId };
+      usage[connectionId].bytesWritten = 0;
+      usage[connectionId].bytesRead = 0;  
+      usage[connectionId].active = true;
+
       agentSocket.on('data', function(d) {
         usage[connectionId].bytesWritten = agentSocket.bytesWritten;
         usage[connectionId].bytesRead = agentSocket.bytesRead;  
@@ -29,7 +30,7 @@ Usage.prototype.collect = function() {
         self.emit('data', usage[connectionId]);
       });
 
-      agentSocket.on('close', function() {
+      server.pubsub.subscribe('_peer/disconnect', function() {
         usage[connectionId].active = false;  
       });
     });

@@ -1,0 +1,17 @@
+{
+  "name": "zetta-usage-addon",
+  "version": "0.0.1",
+  "description": "Basic usage stats for zetta",
+  "main": "usage_app.js",
+  "devDependencies": {
+    "levelup": "^0.19.0",
+    "memdown": "^1.0.0",
+    "zetta": "^0.22.0",
+    "zetta-photocell-mock-driver": "^0.4.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT"
+}

@@ -11,11 +11,12 @@ UsageResource.prototype.init = function(config) {
 
 UsageResource.prototype.list = function(env, next) {
   var doc = {}
+  var self = this;
   doc.class = ['usage']
   doc.links = [{rel: ['self'], href: env.helpers.url.current()}]
   doc.entities = [];
   Object.keys(this.usage).forEach(function(hub) {
-    doc.entities.push(usage[hub]);  
+    doc.entities.push(self.usage[hub]);  
   });
   env.response.body = doc;
   env.response.statusCode = 200;
