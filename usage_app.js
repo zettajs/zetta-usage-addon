@@ -38,6 +38,9 @@ Usage.prototype.collect = function() {
 
     server.pubsub.subscribe('_peer/disconnect', function(ev, socket) {
       var connectionId = socket.peer.connectionId
+      if(!usage[connectionId]) {
+        usage[connectionId] = {};
+      }
       usage[connectionId].active = false;  
       usage[connectionId].disconnected = new Date().getTime();
       self.emit('data', usage[connectionId]);
