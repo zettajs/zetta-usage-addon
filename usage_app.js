@@ -1,7 +1,6 @@
 var UsageResource = require('./usage_resource');
 var EventEmitter = require('events').EventEmitter;
 var util = require('util');
-var ObjectStream = require('zetta-streams').ObjectStream;
 
 var Usage = module.exports = function() {
   EventEmitter.call(this);
