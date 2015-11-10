@@ -11,7 +11,6 @@ util.inherits(Usage, EventEmitter);
 Usage.prototype.collect = function() {
   var self = this;
   return function(server) {
-    self.dataStream = new ObjectStream('usage/stats', {}, server.pubsub);
     var cloud = server.httpServer.cloud;
     var requestServer = server.httpServer.server;
     var name = server.httpServer.zetta.id;
@@ -32,7 +31,6 @@ Usage.prototype.collect = function() {
         usage[connectionId].bytesRead = agentSocket.bytesRead;  
         usage[connectionId].active = true;
         self.emit('data', usage[connectionId]);
-        self.dataStream.write(usage[connectionId]);
       });
     });
 
@@ -44,7 +42,6 @@ Usage.prototype.collect = function() {
       usage[connectionId].active = false;  
       usage[connectionId].disconnected = new Date().getTime();
       self.emit('data', usage[connectionId]);
-      self.dataStream.write(usage[connectionId]);
     });
   }  
 };
