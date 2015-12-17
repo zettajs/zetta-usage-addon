@@ -1,6 +1,6 @@
 {
   "name": "zetta-usage-addon",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Basic usage stats for zetta",
   "main": "usage_app.js",
   "devDependencies": {
@@ -12,8 +12,18 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Matthew Dobson <mdobson4@gmail.com>",
   "license": "MIT",
-  "dependencies": {
-  }
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zettajs/zetta-usage-addon.git"
+  },
+  "keywords": [
+    "zetta"
+  ],
+  "bugs": {
+    "url": "https://github.com/zettajs/zetta-usage-addon/issues"
+  },
+  "homepage": "https://github.com/zettajs/zetta-usage-addon#readme"
 }
